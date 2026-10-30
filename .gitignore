@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+
+# Android / Gradle
+.gradle/
+build/
+local.properties
+*.apk
+*.aab
+*.keystore
+*.jks
+captures/
+.cxx/
+
+# Android Studio
+.idea/
+*.iml
+
+# Python / backend
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+
+# Secrets and local config
+secrets.properties
+*.pem
+
+# Claude Code local state
+.claude/settings.local.json
+.claude/
