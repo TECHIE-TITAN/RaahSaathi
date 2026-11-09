@@ -45,13 +45,32 @@
 - **Risks to check:** (1) wake-word performance: "raah-saa-thi" has two long vowels and an aspirated "th", so test it on real recordings across accents before Phase 4; (2) trademark, Play Store and domain availability (not yet checked); (3) *Saathi* is widely used by other products, so the compound must be checked for near-matches.
 - **Still open:** the Android package id (decide in setup step 0.7).
 
+### ADR-013 Launch languages: Hindi and English only — *Accepted (user decision, 2026-11-03)*
+- **Decision:** v1 supports Hindi, English and code-mixed Hindi-English. More languages come after the pipeline is proven.
+- **Consequences:** On-device OCR needs only the Latin and Devanagari script models. Benchmarks and test data cover Hindi/English only. Marathi is the cheapest next addition (same Devanagari script).
+
+### ADR-014 Minimum device: 3 GB RAM; Lite mode deferred — *Accepted (user decision, 2026-11-03)*
+- **Decision:** The minimum is 3 GB RAM. A 2 GB Lite mode is revisited after real memory is measured in Phase 1.
+
+### ADR-015 Android package id: `dev.<name>.raahsaathi` for development — *Accepted, name pending*
+- **Decision:** Use a no-domain id of the form `dev.<name>.raahsaathi` during development. The id cannot change once published, so decide before any Play Store upload whether to move to a domain-based id (this means a new app listing).
+- **Resolved:** the id is `dev.techietitan.raahsaathi`. The handle "techie-titan" is written without the hyphen because hyphens are not allowed in Android package ids.
+
+### ADR-016 Open-model baseline replaces Bhashini as primary — *Proposed (2026-11-09; Bhashini account not obtainable)*
+- **Context:** Bhashini access is unavailable. No single open model found covers speech recognition, translation and speech output for Hindi and English with a commercial-friendly licence. SeamlessM4T v2 covers all three in one model but its weights are CC-BY-NC (non-commercial), so it is excluded. Voxtral (Apache 2.0, Hindi supported) does recognition and some translation but has no speech output and the 3B model is heavy.
+- **Decision (proposed):** Pick the best open model per task behind the adapter layer: on-device Android first (`SpeechRecognizer`, `TextToSpeech`, ML Kit OCR and Translation), then local open models for comparison: AI4Bharat IndicConformer (ASR), IndicTrans2 (translation, MIT), Indic Parler-TTS (speech output), Whisper as an English-strong fallback. Bhashini and Sarvam become optional adapters.
+- **Measured 2026-11-09 (Hugging Face API, repo files):** licences per model cards: IndicConformer-600M MIT, Indic Parler-TTS Apache-2.0, IndicTrans2 dist-200M MIT, Whisper Apache-2.0 (openai repos), whisper.cpp MIT. Sizes: IndicTrans2 dist-200M weights about 0.9-1.1 GB each direction; Indic Parler-TTS about 3.75 GB; IndicConformer-600M repo about 2.5 GB; whisper.cpp tiny multilingual 78 MB (32 MB q5_1), base 148 MB (60 MB q5_1). All Indic models are too large for the phone; they are backend/laptop only.
+- **Phone demo choice:** no custom model bundled. Use Android `SpeechRecognizer` and `TextToSpeech` plus ML Kit OCR and Translation. Fallback if `SpeechRecognizer` fails on the target device: whisper.cpp tiny q5_1 (32 MB), with weak expected Hindi accuracy (to be measured).
+- **Still to verify:** real Hindi/English code-mixed accuracy and latency (Phase 1 spike 1.6).
+- **Supersedes** the "Bhashini is primary" consequence in ADR-011. Q15 becomes non-blocking.
+
 ## Open questions
 
 | # | Question | Needed by | Notes |
 |---|---|---|---|
 | Q1 | Native Android confirmed, or is a web/PWA expected? | Phase 0 | Web cannot do reliable background mic or wake phrase |
 | Q2 | ~~App name (also the wake phrase)~~ **Resolved: Raahsaathi (ADR-012).** Remaining: availability check (trademark, Play Store, domain) and wake-phrase accent testing | Phase 1 / Phase 4 | See ADR-012 |
-| Q3 | Which Indian languages at launch besides English and Hindi? | Phase 0 | Drives ASR/TTS/OCR benchmarks, test data collection |
+| Q3 | ~~Which Indian languages at launch besides English and Hindi?~~ **Resolved: none; Hindi + English only (ADR-013).** | Phase 0 | Revisit after Phase 2 |
 | Q4 | Which city or cities for field collection and pilot? | Phase 0 | Affects sound/sign diversity |
 | Q5 | Do we use any VLM at all in the free baseline (Gemini free tier, local open-weight model), or keep "what is around me" OCR/places-based only? | Phase 0 | Gemini free-tier limits and data-use terms need review; see 04 section 3.2 |
 | Q15 | What are Bhashini's official terms for production/pilot use, and can we get written confirmation? | Phase 0 | Critical: it is the only free engine for ASR/translation/TTS/OCR |

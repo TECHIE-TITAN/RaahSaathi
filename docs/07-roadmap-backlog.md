@@ -20,14 +20,14 @@ Goal: a machine where code can be built and run, accounts in place, and the work
 
 | Step | What | Done when | Status |
 |---|---|---|---|
-| 0.1 | Android Studio first run: SDK, platform tools, emulator package | `~/Library/Android/sdk` contains `platform-tools`, `emulator`, `build-tools`, `platforms` | Not started |
-| 0.2 | Command-line paths: `JAVA_HOME`, `adb`, SDK variables | `java -version` and `adb version` work in a new terminal | Not started |
-| 0.3 | Emulator (arm64 image) created; real phone connected if available | `adb devices` lists a device or emulator | Not started |
-| 0.4 | Python 3.11+ for the backend (machine has 3.9.6) | `python3.12 --version` (or chosen version) works | Not started |
-| 0.5 | Git housekeeping: `.gitignore`, first commit of docs, `PRODUCT.md`, `ui-prototype/` | `git log` shows the commit; no secrets tracked | Not started |
-| 0.6 | Bhashini account and API keys; read production terms | Keys stored locally (never committed); terms noted in `docs/THIRD_PARTY.md` | Not started |
-| 0.7 | Decisions recorded: launch languages beyond English and Hindi; 2 GB Lite mode yes/no; Android package name | Answers written into `docs/08` | Not started |
-| 0.8 | Final toolchain check | A throwaway "hello world" Android app builds and runs; a throwaway FastAPI app responds | Not started |
+| 0.1 | Android Studio first run: SDK, platform tools, emulator package | `~/Library/Android/sdk` contains `platform-tools`, `emulator`, `build-tools`, `platforms` | Done |
+| 0.2 | Command-line paths: `JAVA_HOME`, `adb`, SDK variables | `java -version` and `adb version` work in a new terminal | Done |
+| 0.3 | Emulator (arm64 image) created; real phone connected if available | `adb devices` lists a device or emulator | Done (emulator Min3GB; no real phone yet) |
+| 0.4 | Python 3.11+ for the backend (machine has 3.9.6) | `python3.12 --version` (or chosen version) works | Done (uv 0.13.6, Python 3.12.16) |
+| 0.5 | Git housekeeping: `.gitignore`, first commit of docs, `PRODUCT.md`, `ui-prototype/` | `git log` shows the commit; no secrets tracked | Done once the commit is confirmed |
+| 0.6 | Bhashini account and API keys; read production terms | Keys stored locally (never committed); terms noted in `docs/THIRD_PARTY.md` | Dropped from the baseline (no Bhashini account; ADR-016). `backend/.env` kept for optional providers |
+| 0.7 | Decisions recorded: launch languages beyond English and Hindi; 2 GB Lite mode yes/no; Android package name | Answers written into `docs/08` | Done (ADR-013/014/015; package id `dev.techietitan.raahsaathi`) |
+| 0.8 | Final toolchain check | A throwaway "hello world" Android app builds and runs; a throwaway FastAPI app responds | Android hello world done; FastAPI check pending |
 
 **Exit:** all rows done. Then scaffolding starts.
 
