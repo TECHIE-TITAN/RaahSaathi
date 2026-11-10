@@ -39,7 +39,7 @@ Goal: prove or kill the riskiest assumptions before building features.
 - Backend skeleton: FastAPI, provider adapter interfaces, routing config, fake providers, health endpoint.
 - Spikes with scripts and small throwaway apps:
   - ASR on code-mixed commands: Bhashini vs on-device `SpeechRecognizer` (and Sarvam within free credits as a reference).
-  - OCR on about 50 shop-board photos: ML Kit vs Bhashini OCR.
+  - OCR on BSTD images (Bharat Scene Text Dataset, kept outside git): ML Kit Latin and Devanagari. Assumes dataset-style framing; blind-user framing is deferred (ADR-017) and must be revisited before the Phase 2 exit claim.
   - YAMNet on about 30 minutes of street audio.
   - **On-device footprint:** APK size, steady and peak RAM, battery per hour on your lowest-spec phone; decide Lite mode.
 - Formative interviews with 3-5 users per persona; recruit through disability organisations.

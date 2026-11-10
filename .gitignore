@@ -30,3 +30,6 @@ secrets.properties
 # Claude Code local state
 .claude/settings.local.json
 .claude/
+
+# Datasets (large, third-party licences; never commit)
+data/

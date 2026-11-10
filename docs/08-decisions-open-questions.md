@@ -64,6 +64,12 @@
 - **Still to verify:** real Hindi/English code-mixed accuracy and latency (Phase 1 spike 1.6).
 - **Supersedes** the "Bhashini is primary" consequence in ADR-011. Q15 becomes non-blocking.
 
+### ADR-017 OCR spike uses BSTD and assumes dataset-style framing — *Accepted (user decision, 2026-11-10)*
+- **Decision:** The Phase 1 OCR spike (step 1.4) is run on the Bharat Scene Text Dataset (BSTD), and we assume photos are framed as they are in that dataset. How a blind user actually frames a shot is deliberately out of scope for now.
+- **Consequences:** Phase 1 OCR numbers measure recognition quality only. They say nothing about guided capture, blur, cut-off text or the 3-attempt loop (ADR-009). Treat them as an upper bound for real use.
+- **Deferred (must be revisited):** framing realism. Collect or simulate blind-style photos (off-angle, partly cut off, blurred, glare, dusk, small distant signs) and re-run the benchmark before the Phase 2 exit claim of "80% of board reads correct within 3 attempts". Owner: to be decided; revisit after the Phase 1 OCR spike.
+- **To check first:** the BSTD licence and file format (not yet read); keep the data outside git.
+
 ## Open questions
 
 | # | Question | Needed by | Notes |
