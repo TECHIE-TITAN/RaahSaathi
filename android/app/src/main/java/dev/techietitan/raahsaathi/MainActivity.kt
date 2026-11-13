@@ -1,5 +1,6 @@
 package dev.techietitan.raahsaathi
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import dev.techietitan.raahsaathi.spike.OcrSpikeActivity
 import dev.techietitan.raahsaathi.ui.theme.AppScheme
 import dev.techietitan.raahsaathi.ui.theme.RaahsaathiTheme
 
@@ -45,6 +47,7 @@ class MainActivity : ComponentActivity() {
                     ThemeCheck(
                         scheme = scheme,
                         onSchemeChange = { scheme = it },
+                        onOpenSpike = { startActivity(Intent(this, OcrSpikeActivity::class.java)) },
                         modifier = Modifier.padding(innerPadding),
                     )
                 }
@@ -59,6 +62,7 @@ fun ThemeCheck(
     scheme: AppScheme,
     onSchemeChange: (AppScheme) -> Unit,
     modifier: Modifier = Modifier,
+    onOpenSpike: () -> Unit = {},
 ) {
     val extras = RaahsaathiTheme.extras
     val outline = BorderStroke(extras.outlineWidth, MaterialTheme.colorScheme.outline)
@@ -88,6 +92,12 @@ fun ThemeCheck(
         AlertSwatch("Critical: siren", extras.alerts.critical.container, extras.alerts.critical.content)
         AlertSwatch("High: close horn", extras.alerts.high.container, extras.alerts.high.content)
         AlertSwatch("Info: bell", extras.alerts.info.container, extras.alerts.info.content)
+
+        Button(
+            onClick = onOpenSpike,
+            modifier = Modifier.fillMaxWidth().height(72.dp),
+            border = outline,
+        ) { Text("Dev: OCR spike", style = MaterialTheme.typography.titleLarge) }
     }
 }
 
